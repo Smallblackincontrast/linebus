@@ -49,21 +49,25 @@ class TestGuntherWebLogin(WebFlowTestCase):
 		self.send_keys(self._loc_password, password)
 		self.click(self._loc_sign_in)
 
+	# 已注册手机号登录
 	def test_telphone_login_success(self):
 		self._login_flow("17863803770", "666666")
 		self.keep()
 		self.assertEqual(self.get_text(self._loc_my_account), "MY ACCOUNT", msg="登陆成功！")
 
+	# 未注册手机号登录
 	def test_telphone_login_failed(self):
 		self._login_flow("17888888888", "666666")
 		self.keep()
 		self.assertEqual(self.get_text(self._loc_login_failed_message), "User account not existed", msg="登录失败")
 
+	# 已注册邮箱登录
 	def test_email_login_success(self):
 		self._login_flow("ruanzhe@riverroad.cn", "666666", is_telphone=False)
 		self.keep()
 		self.assertEqual(self.get_text(self._loc_my_account), "MY ACCOUNT", msg="登陆成功！")
 
+	# 未注册邮箱登录
 	def test_email_login_failed(self):
 		self._login_flow("123123@riverroad.cn", "666666", is_telphone=False)
 		self.keep()
