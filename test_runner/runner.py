@@ -1,6 +1,5 @@
 # coding=utf-8
 import time
-import os
 import unittest
 
 from test_runner.html_test_runner import HTMLTestRunner

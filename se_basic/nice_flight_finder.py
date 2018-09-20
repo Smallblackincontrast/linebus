@@ -1,7 +1,6 @@
 """
     用于检索近期的低价机票
 """
-
 import datetime
 
 from selenium.common.exceptions import NoSuchElementException
@@ -77,7 +76,7 @@ class NiceFlightFinder(WebFlowTestCase):
     def find_lowest_prices_flow(self):
 
         # 打开页面
-        self.open("http://www.ctrip.com/", 3, 3, loc_blank=self._loc_blank)
+        self.open("http://www.ctrip.com/", 30, 30, loc_blank=self._loc_blank, is_active_window=True)
 
         # 获得拟查询的的所有出发日期
         start_dates = self._get_start_dates()
