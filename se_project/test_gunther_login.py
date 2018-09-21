@@ -7,7 +7,7 @@ from se_basic.web_flow_test_case import WebFlowTestCase
 
 class TestGuntherWebLogin(WebFlowTestCase):
 
-	def setUp(self, timeout=5000):
+	def setUp(self):
 		self.url = "http://test.bigappleexpress.com/"
 		# login按钮
 		self._loc_login_button = ".user>div:nth-child(5)"
@@ -29,6 +29,9 @@ class TestGuntherWebLogin(WebFlowTestCase):
 		# email登录方式切换
 		self._loc_change_to_email = "div[sid='emailRadio']>div[sid='radio']"
 
+	def _click_login(self):
+		self.click(self._loc_login_button)
+
 	def _login_by_telephone(self):
 		self.click(self._loc_country_code)
 		self.click(self._loc_country_code_select)
@@ -36,18 +39,30 @@ class TestGuntherWebLogin(WebFlowTestCase):
 	def _login_by_email(self):
 		self.click(self._loc_change_to_email)
 
+	def _send_telephone_number(self, username):
+		self.send_keys(self._loc_phone_number, username)
+
+	def _send_email_number(self, username):
+		self.send_keys(self._loc_email_number, username)
+
+	def _send_password(self, password):
+		self.send_keys(self._loc_password, password)
+
+	def _click_sign(self):
+		self.click(self._loc_sign_in)
+
 	def _login_flow(self, username, password, is_telphone: bool = True):
 		self.open(self.url, is_auto_close=True)
 		self.maximize_window()
-		self.click(self._loc_login_button)
+		self._click_login()
 		if is_telphone:
 			self._login_by_telephone()
-			self.send_keys(self._loc_phone_number, username)
+			self._send_telephone_number(username)
 		else:
 			self._login_by_email()
-			self.send_keys(self._loc_email_number, username, click_first=True)
-		self.send_keys(self._loc_password, password)
-		self.click(self._loc_sign_in)
+			self._send_email_number(username)
+		self._send_password(password)
+		self._click_sign()
 
 	# 已注册手机号登录
 	def test_telphone_login_success(self):
