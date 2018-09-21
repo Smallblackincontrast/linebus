@@ -51,7 +51,7 @@ class TestGuntherWebLogin(WebFlowTestCase):
 	def _click_sign(self):
 		self.click(self._loc_sign_in)
 
-	def _login_flow(self, username, password, is_telphone: bool = True):
+	def login_flow(self, username, password, is_telphone: bool = True):
 		self.open(self.url, is_auto_close=True)
 		self.maximize_window()
 		self._click_login()
